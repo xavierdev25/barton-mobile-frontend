@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   View,
   Text,
@@ -6,47 +6,50 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Bell, Calendar, Users, Award } from 'lucide-react-native';
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Bell, Calendar, Users, Award } from "lucide-react-native";
+
+// Importar imagen local
+const barton1Image = require("../../assets/images/barton1.jpeg");
+const barton2Image = require("../../assets/images/barton2.jpeg");
+const bartonLogo = require("../../assets/images/barton.jpeg");
 
 const newsData = [
   {
     id: 1,
-    title: 'Ceremonia de Graduación 2024',
+    title: "Ceremonia de Graduación 2024",
     summary:
-      'Celebramos a nuestros graduados de la promoción 2024 en una emotiva ceremonia.',
-    image:
-      'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=800',
-    date: '15 Dic 2024',
-    category: 'Eventos',
+      "Celebramos a nuestros graduados de la promoción 2024 en una emotiva ceremonia.",
+    image: barton1Image,
+    date: "15 Dic 2024",
+    category: "Eventos",
   },
   {
     id: 2,
-    title: 'Nuevo Laboratorio de Ciencias',
+    title: "Nuevo Laboratorio de Ciencias",
     summary:
-      'Inauguramos nuestro moderno laboratorio equipado con tecnología de vanguardia.',
+      "Inauguramos nuestro moderno laboratorio equipado con tecnología de vanguardia.",
     image:
-      'https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg?auto=compress&cs=tinysrgb&w=800',
-    date: '12 Dic 2024',
-    category: 'Infraestructura',
+      "https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg?auto=compress&cs=tinysrgb&w=800",
+    date: "12 Dic 2024",
+    category: "Infraestructura",
   },
   {
     id: 3,
-    title: 'Olimpiadas de Matemáticas',
+    title: "Olimpiadas de Matemáticas",
     summary:
-      'Nuestros estudiantes brillaron en las olimpiadas regionales de matemáticas.',
-    image:
-      'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800',
-    date: '8 Dic 2024',
-    category: 'Académico',
+      "Nuestros estudiantes brillaron en las olimpiadas regionales de matemáticas.",
+    image: barton2Image,
+    date: "8 Dic 2024",
+    category: "Académico",
   },
 ];
 
 const quickStats = [
-  { icon: Users, label: 'Estudiantes', value: '250' },
-  { icon: Award, label: 'Logros', value: '45' },
-  { icon: Calendar, label: 'Años', value: '10' },
+  { icon: Users, label: "Estudiantes", value: "250" },
+  { icon: Award, label: "Logros", value: "45" },
+  { icon: Calendar, label: "Años", value: "10" },
 ];
 
 export default function HomeScreen() {
@@ -58,9 +61,12 @@ export default function HomeScreen() {
       >
         {/* Header */}
         <View style={styles.header}>
-          <View>
-            <Text style={styles.headerTitle}>Colegio Barton</Text>
-            <Text style={styles.headerSubtitle}>Bienvenido de vuelta</Text>
+          <View style={styles.headerContent}>
+            <Image source={bartonLogo} style={styles.logoImage} />
+            <View>
+              <Text style={styles.headerTitle}>Colegio Barton</Text>
+              <Text style={styles.headerSubtitle}>Bienvenido de vuelta</Text>
+            </View>
           </View>
           <TouchableOpacity style={styles.notificationButton}>
             <Bell size={24} color="#1E40AF" />
@@ -84,7 +90,14 @@ export default function HomeScreen() {
 
           {newsData.map((news) => (
             <TouchableOpacity key={news.id} style={styles.newsCard}>
-              <Image source={{ uri: news.image }} style={styles.newsImage} />
+              <Image
+                source={
+                  typeof news.image === "string"
+                    ? { uri: news.image }
+                    : news.image
+                }
+                style={styles.newsImage}
+              />
               <View style={styles.newsContent}>
                 <View style={styles.newsHeader}>
                   <Text style={styles.newsCategory}>{news.category}</Text>
@@ -121,49 +134,59 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8FAFC',
+    backgroundColor: "#F8FAFC",
   },
   scrollView: {
     flex: 1,
     paddingHorizontal: 16,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingVertical: 20,
+  },
+  headerContent: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  logoImage: {
+    width: 42,
+    height: 42,
+    borderRadius: 16,
+    marginRight: 12,
   },
   headerTitle: {
     fontSize: 28,
-    fontWeight: '700',
-    color: '#1E293B',
+    fontWeight: "700",
+    color: "#1E293B",
   },
   headerSubtitle: {
     fontSize: 16,
-    color: '#64748B',
+    color: "#64748B",
     marginTop: 4,
   },
   notificationButton: {
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: '#EFF6FF',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#EFF6FF",
+    justifyContent: "center",
+    alignItems: "center",
   },
   statsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 32,
   },
   statCard: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     padding: 16,
     borderRadius: 16,
-    alignItems: 'center',
+    alignItems: "center",
     marginHorizontal: 4,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
@@ -171,13 +194,13 @@ const styles = StyleSheet.create({
   },
   statValue: {
     fontSize: 24,
-    fontWeight: '700',
-    color: '#1E293B',
+    fontWeight: "700",
+    color: "#1E293B",
     marginTop: 8,
   },
   statLabel: {
     fontSize: 12,
-    color: '#64748B',
+    color: "#64748B",
     marginTop: 4,
   },
   newsSection: {
@@ -185,73 +208,73 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: '600',
-    color: '#1E293B',
+    fontWeight: "600",
+    color: "#1E293B",
     marginBottom: 16,
   },
   newsCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderRadius: 16,
     marginBottom: 16,
-    overflow: 'hidden',
-    shadowColor: '#000',
+    overflow: "hidden",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 3,
   },
   newsImage: {
-    width: '100%',
+    width: "100%",
     height: 180,
   },
   newsContent: {
     padding: 16,
   },
   newsHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 8,
   },
   newsCategory: {
     fontSize: 12,
-    fontWeight: '600',
-    color: '#1E40AF',
-    backgroundColor: '#EFF6FF',
+    fontWeight: "600",
+    color: "#1E40AF",
+    backgroundColor: "#EFF6FF",
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 8,
   },
   newsDate: {
     fontSize: 12,
-    color: '#64748B',
+    color: "#64748B",
   },
   newsTitle: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#1E293B',
+    fontWeight: "600",
+    color: "#1E293B",
     marginBottom: 8,
   },
   newsSummary: {
     fontSize: 14,
-    color: '#64748B',
+    color: "#64748B",
     lineHeight: 20,
   },
   quickActions: {
     marginBottom: 32,
   },
   actionsGrid: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   actionCard: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     padding: 20,
     borderRadius: 16,
-    alignItems: 'center',
+    alignItems: "center",
     marginHorizontal: 4,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
@@ -259,13 +282,13 @@ const styles = StyleSheet.create({
   },
   actionTitle: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#1E293B',
+    fontWeight: "600",
+    color: "#1E293B",
     marginTop: 12,
   },
   actionSubtitle: {
     fontSize: 12,
-    color: '#64748B',
+    color: "#64748B",
     marginTop: 4,
   },
 });
